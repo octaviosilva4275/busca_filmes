@@ -1,31 +1,32 @@
-const localStorageKey = 'favoriteMovies';
+const chaveLocalStorage = 'filmesFavoritos';
+const apiKey = '1c383d429dbb75c94641ae495afdce7f'; // Sua chave de API aqui
 
-function getFavoriteMovies() {
-  return JSON.parse(localStorage.getItem(localStorageKey));
+function obterFilmesFavoritos() {
+  return JSON.parse(localStorage.getItem(chaveLocalStorage));
 }
 
-function saveToLocalStorage(movie) {
-  const movies = getFavoriteMovies() || [];
-  movies.push(movie);
-  const moviesJSON = JSON.stringify(movies);
-  localStorage.setItem(localStorageKey, moviesJSON);
+function salvarNoLocalStorage(filme) {
+  const filmes = obterFilmesFavoritos() || [];
+  filmes.push(filme);
+  const filmesJSON = JSON.stringify(filmes);
+  localStorage.setItem(chaveLocalStorage, filmesJSON);
 }
 
-function checkMovieIsFavorited(id) {
-  const movies = getFavoriteMovies() || [];
-  return movies.find(movie => movie.id == id);
+function verificarFilmeFavorito(id) {
+  const filmes = obterFilmesFavoritos() || [];
+  return filmes.find(filme => filme.id == id);
 }
 
-function removeFromLocalStorage(id) {
-  const movies = getFavoriteMovies() || [];
-  const findMovie = movies.find(movie => movie.id == id);
-  const newMovies = movies.filter(movie => movie.id != findMovie.id);
-  localStorage.setItem(localStorageKey, JSON.stringify(newMovies));
+function removerDoLocalStorage(id) {
+  const filmes = obterFilmesFavoritos() || [];
+  const filmeEncontrado = filmes.find(filme => filme.id == id);
+  const novosFilmes = filmes.filter(filme => filme.id != filmeEncontrado.id);
+  localStorage.setItem(chaveLocalStorage, JSON.stringify(novosFilmes));
 }
 
 export const LocalStorage = {
-  getFavoriteMovies,
-  saveToLocalStorage,
-  checkMovieIsFavorited,
-  removeFromLocalStorage
+  obterFilmesFavoritos,
+  salvarNoLocalStorage,
+  verificarFilmeFavorito,
+  removerDoLocalStorage
 };
